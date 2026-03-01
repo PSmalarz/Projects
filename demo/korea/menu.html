@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Menu | Pochita Korean Bar</title>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<header class="navbar">
+			<div class="container">
+				<a href="index.html" class="logo">POCHITA<span>.</span></a>
+				<nav class="nav-links" id="navLinks">
+					<a href="index.html">Home</a>
+					<a href="o-nas.html">O nas</a>
+					<a href="menu.html" class="active-link">Menu</a>
+					<a href="kontakt.html">Kontakt</a>
+				</nav>
+				<div class="hamburger" id="hamburger">
+					<span></span><span></span><span></span>
+				</div>
+			</div>
+		</header>
+
+		<section class="menu-hero about-hero-bg">
+			<div class="container text-center fade-in">
+				<h1>Karta Dań</h1>
+				<p>Od chrupiącego kurczaka po rzemieślnicze Soju</p>
+			</div>
+		</section>
+
+		<section class="menu-section">
+			<div class="container">
+				<div class="menu-categories">
+					<button class="cat-btn active" onclick="filterMenu('all')">
+						Wszystko
+					</button>
+					<button class="cat-btn" onclick="filterMenu('starters')">
+						Przystawki
+					</button>
+					<button class="cat-btn" onclick="filterMenu('kfc')">
+						KFC (Kurczak)
+					</button>
+					<button class="cat-btn" onclick="filterMenu('main')">
+						Dania Główne
+					</button>
+					<button class="cat-btn" onclick="filterMenu('soups')">
+						Zupy & Ramen
+					</button>
+					<button class="cat-btn" onclick="filterMenu('drinks')">
+						Alkohole
+					</button>
+				</div>
+
+				<div class="menu-grid" id="menuGrid">
+					<div class="menu-item starters fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Kimchi Fries</h3>
+								<span class="m-price">26 zł</span>
+							</div>
+							<p>
+								Frytki z batatów posypane siekanym kimchi, szczypiorkiem i
+								polane majonezem gochujang.
+							</p>
+							<span class="tags">#Fusion #MustTry</span>
+						</div>
+					</div>
+
+					<div class="menu-item starters fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Mandu Dumplings</h3>
+								<span class="m-price">24 zł</span>
+							</div>
+							<p>
+								5 sztuk smażonych pierożków z nadzieniem wieprzowo-warzywnym i
+								sosem sojowym.
+							</p>
+							<span class="tags">#Classic</span>
+						</div>
+					</div>
+
+					<div class="menu-item kfc fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Original Soy Garlic</h3>
+								<span class="m-price">36 zł</span>
+							</div>
+							<p>
+								Podwójnie smażone skrzydełka w glazurze z ciemnego soi i
+								czosnku. Chrupkość, która uzależnia.
+							</p>
+							<span class="tags">#BestSeller #Crispy</span>
+						</div>
+					</div>
+
+					<div class="menu-item kfc fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Snowing Cheese Chicken</h3>
+								<span class="m-price">39 zł</span>
+							</div>
+							<p>
+								Chrupiące kawałki kurczaka posypane specjalną mieszanką
+								słodkiego "śnieżnego" sera.
+							</p>
+							<span class="tags">#KidsFavorite</span>
+						</div>
+					</div>
+
+					<div class="menu-item main fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Bulgogi Beef Bowl</h3>
+								<span class="m-price">46 zł</span>
+							</div>
+							<p>
+								Cienkie plastry antrykotu marynowane w gruszce i soi, podawane z
+								ryżem i zestawem banchan.
+							</p>
+							<span class="tags">#Premium #Protein</span>
+						</div>
+					</div>
+
+					<div class="menu-item main fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Japchae Noodles</h3>
+								<span class="m-price">38 zł</span>
+							</div>
+							<p>
+								Słodko-słony makaron z batatów (dangmyeon) smażony z warzywami,
+								grzybami shitake i sezamem.
+							</p>
+							<span class="tags">#VeganOption #GlutenFree</span>
+						</div>
+					</div>
+
+					<div class="menu-item soups fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Kimchi-jjigae</h3>
+								<span class="m-price">34 zł</span>
+							</div>
+							<p>
+								Tradycyjna, pikantna zupa na bazie dojrzałego kimchi z boczkiem
+								i tofu. Podawana z ryżem.
+							</p>
+							<span class="tags">#Spicy #Traditional</span>
+						</div>
+					</div>
+
+					<div class="menu-item soups fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Shin Ramyun Deluxe</h3>
+								<span class="m-price">32 zł</span>
+							</div>
+							<p>
+								Pikantny koreański ramen z jajkiem, szczypiorkiem, nori i
+								plastrami boczku chashu.
+							</p>
+							<span class="tags">#Hot #StreetFood</span>
+						</div>
+					</div>
+
+					<div class="menu-item drinks fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Soju Plum (Śliwka)</h3>
+								<span class="m-price">28 zł</span>
+							</div>
+							<p>
+								Tradycyjny koreański alkohol destylowany. Idealnie gasi ostrość
+								dań.
+							</p>
+							<span class="tags">#Alcohol #360ml</span>
+						</div>
+					</div>
+
+					<div class="menu-item drinks fade-in">
+						<div class="menu-info">
+							<div class="menu-header">
+								<h3>Makgeolli</h3>
+								<span class="m-price">35 zł</span>
+							</div>
+							<p>
+								Koreańskie wino ryżowe o mlecznym kolorze i delikatnie gazowanej
+								strukturze.
+							</p>
+							<span class="tags">#Unique #Traditional</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="footer-grid">
+					<div class="footer-info">
+						<h3>POCHITA</h3>
+						<p>ul. Koreańska 24, Warszawa</p>
+						<p>Rezerwacje: +48 123 456 789</p>
+					</div>
+					<div class="footer-hours">
+						<h4>Godziny otwarcia</h4>
+						<p>Pn-Czw: 16:00 - 23:00</p>
+						<p>Pt-Sb: 16:00 - 02:00</p>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					&copy; 2026 Pochita Korean Bar. Wszelkie prawa zastrzeżone.
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Funkcja filtrowania dań
+			function filterMenu(category) {
+				const items = document.querySelectorAll(".menu-item");
+				const btns = document.querySelectorAll(".cat-btn");
+
+				btns.forEach((btn) => btn.classList.remove("active"));
+				event.target.classList.add("active");
+
+				items.forEach((item) => {
+					if (category === "all" || item.classList.contains(category)) {
+						item.style.display = "block";
+					} else {
+						item.style.display = "none";
+					}
+				});
+			}
+
+			// Hamburger menu logic
+			const hamburger = document.getElementById("hamburger");
+			const navLinks = document.getElementById("navLinks");
+			hamburger.addEventListener("click", () => {
+				navLinks.classList.toggle("active");
+				hamburger.classList.toggle("toggle");
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,711 @@
+/* Zmienne kolorystyczne */
+:root {
+	--bg-black: #0a0a0a;
+	--bottle-green: #00332a;
+	--light-green: #005a4a;
+	--text-white: #e0e0e0;
+	--accent: #c4a484; /* Delikatne złoto/beż dla kontrastu */
+	--transition: all 0.3s ease-in-out;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	background-color: var(--bg-black);
+	color: var(--text-white);
+	line-height: 1.6;
+	overflow-x: hidden;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* --- NAVBAR (Sticky) --- */
+.navbar {
+	position: sticky;
+	top: 0;
+	background: rgba(10, 10, 10, 0.95);
+	padding: 20px 0;
+	z-index: 1000;
+	border-bottom: 1px solid var(--bottle-green);
+}
+
+.navbar .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	font-family: "Playfair Display", serif;
+	font-size: 1.8rem;
+	color: var(--text-white);
+	text-decoration: none;
+	font-weight: 700;
+	letter-spacing: 2px;
+}
+
+.logo span {
+	color: var(--light-green);
+}
+
+.nav-links a {
+	color: var(--text-white);
+	text-decoration: none;
+	margin-left: 30px;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: var(--transition);
+}
+
+.nav-links a:hover {
+	color: var(--light-green);
+}
+
+/* --- HAMBURGER --- */
+.hamburger {
+	display: none;
+	cursor: pointer;
+}
+
+.hamburger span {
+	display: block;
+	width: 25px;
+	height: 3px;
+	background: var(--text-white);
+	margin: 5px;
+	transition: var(--transition);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+	height: 100vh;
+	background:
+		linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 51, 42, 0.5)),
+		url("https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&q=80&w=1600")
+			center/cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.hero-content h1 {
+	font-family: "Playfair Display", serif;
+	font-size: 4rem;
+	margin-bottom: 20px;
+}
+
+.hero-content p {
+	font-size: 1.2rem;
+	margin-bottom: 30px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn {
+	padding: 15px 40px;
+	background: var(--bottle-green);
+	color: white;
+	text-decoration: none;
+	border: 1px solid var(--light-green);
+	transition: var(--transition);
+	display: inline-block;
+}
+
+.btn:hover {
+	background: var(--light-green);
+	transform: translateY(-3px);
+}
+
+/* --- ANIMACJE --- */
+.fade-in {
+	animation: fadeIn 2s ease-out;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* --- FOOTER --- */
+.footer {
+	background: var(--bg-black);
+	padding: 60px 0 20px;
+	border-top: 2px solid var(--bottle-green);
+	margin-top: 100px;
+}
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 40px;
+	margin-bottom: 40px;
+}
+
+.footer-bottom {
+	text-align: center;
+	font-size: 0.8rem;
+	color: #666;
+	padding-top: 20px;
+	border-top: 1px solid #222;
+}
+
+/* --- RESPONSYWNOŚĆ --- */
+@media (max-width: 768px) {
+	.nav-links {
+		position: fixed;
+		right: -100%;
+		top: 70px;
+		flex-direction: column;
+		background: var(--bg-black);
+		width: 100%;
+		text-align: center;
+		transition: 0.4s;
+		padding: 40px 0;
+		border-bottom: 1px solid var(--bottle-green);
+	}
+
+	.nav-links.active {
+		right: 0;
+	}
+
+	.nav-links a {
+		margin: 20px 0;
+		display: block;
+	}
+
+	.hamburger {
+		display: block;
+	}
+
+	.hero-content h1 {
+		font-size: 2.5rem;
+	}
+}
+/* --- NOWE STYLE DLA TREŚCI --- */
+
+.section-title {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.section-title h2 {
+	font-family: "Playfair Display", serif;
+	font-size: 2.5rem;
+	margin-bottom: 10px;
+}
+
+.line {
+	width: 60px;
+	height: 3px;
+	background: var(--light-green);
+	margin: 0 auto;
+}
+
+/* O NAS */
+.about-section {
+	padding: 100px 0;
+}
+
+.about-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 50px;
+	align-items: center;
+}
+
+.subtitle {
+	color: var(--light-green);
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-size: 0.8rem;
+	font-weight: bold;
+}
+
+.img-frame {
+	width: 100%;
+	height: 100%;
+	border: 1px solid var(--light-green);
+	position: absolute; /* Ramka przylega idealnie do zdjęcia */
+	top: 0;
+	left: 0;
+	z-index: 2; /* Zielona linia jest na zdjęciu */
+	pointer-events: none; /* Żeby ramka nie blokowała kliknięć w zdjęcie */
+}
+
+.img-frame::after {
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 100%;
+	height: 100%;
+	border: 1px solid var(--accent); /* To jest ta "żółta" ramka */
+	z-index: -1; /* To wrzuca ją na sam spód, pod zdjęcie i zieloną ramkę */
+}
+
+/* CARDS / SPECIALS */
+.specials {
+	padding-bottom: 100px;
+}
+
+.specials-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+}
+
+.card {
+	background: #111;
+	border-bottom: 4px solid var(--bottle-green);
+	transition: var(--transition);
+}
+
+.card:hover {
+	transform: translateY(-10px);
+	border-color: var(--light-green);
+}
+
+.card-img {
+	height: 250px;
+	background-size: cover;
+	background-position: center;
+}
+
+.card-content {
+	padding: 25px;
+}
+
+.card-content h3 {
+	margin-bottom: 10px;
+}
+
+.price {
+	display: block;
+	margin-top: 15px;
+	color: var(--light-green);
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+/* TESTIMONIALS */
+.testimonials {
+	padding: 80px 0;
+	background: linear-gradient(
+		to right,
+		var(--bg-black),
+		var(--bottle-green),
+		var(--bg-black)
+	);
+}
+
+.quote-icon {
+	font-size: 5rem;
+	color: var(--light-green);
+	font-family: "Playfair Display", serif;
+	line-height: 0;
+	margin-bottom: 20px;
+}
+
+.quote-text {
+	font-size: 1.5rem;
+	font-style: italic;
+	max-width: 800px;
+	margin: 0 auto 20px;
+}
+
+/* BOOKING */
+.booking {
+	padding: 100px 0;
+	text-align: center;
+}
+
+.booking-box {
+	padding: 60px;
+	border: 1px solid var(--bottle-green);
+	background: rgba(0, 51, 42, 0.1);
+}
+
+/* ANIMACJA PRZY PRZEWIJANIU (Simple Scroll Reveal) */
+.scroll-reveal {
+	opacity: 1; /* W wersji profesjonalnej tutaj użyłbyś JS, żeby zmieniać z 0 na 1 */
+	transform: translateY(0);
+	transition: all 0.8s ease-out;
+}
+
+/* DOPASOWANIE DO TELEFONÓW */
+@media (max-width: 768px) {
+	.about-grid {
+		grid-template-columns: 1fr;
+		text-align: center;
+	}
+	.img-frame {
+		height: 250px;
+	}
+}
+/* --- STYLE PODSTRONY MENU --- */
+
+.menu-hero {
+	padding: 120px 0 60px;
+	background: linear-gradient(to bottom, var(--bottle-green), var(--bg-black));
+}
+
+.menu-hero h1 {
+	font-size: 3.5rem;
+	font-family: "Playfair Display", serif;
+}
+
+.menu-categories {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 50px;
+	flex-wrap: wrap;
+}
+
+.cat-btn {
+	padding: 10px 25px;
+	background: transparent;
+	border: 1px solid var(--bottle-green);
+	color: var(--text-white);
+	cursor: pointer;
+	transition: var(--transition);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 0.8rem;
+}
+
+.cat-btn.active,
+.cat-btn:hover {
+	background: var(--light-green);
+	border-color: var(--light-green);
+}
+
+/* Lista dań */
+.menu-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	gap: 40px;
+	margin-bottom: 100px;
+}
+
+.menu-item {
+	border-left: 3px solid var(--bottle-green);
+	padding-left: 20px;
+	transition: var(--transition);
+}
+
+.menu-item:hover {
+	border-left-color: var(--light-green);
+	background: rgba(0, 89, 74, 0.05);
+}
+
+.menu-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 10px;
+}
+
+.menu-header h3 {
+	font-family: "Playfair Display", serif;
+	font-size: 1.4rem;
+	color: var(--text-white);
+}
+
+.m-price {
+	font-weight: bold;
+	color: var(--light-green);
+}
+
+.menu-info p {
+	font-size: 0.9rem;
+	color: #aaa;
+	margin-bottom: 10px;
+}
+
+.tags {
+	font-size: 0.7rem;
+	color: var(--light-green);
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.active-link {
+	color: var(--light-green) !important;
+	border-bottom: 1px solid var(--light-green);
+}
+
+/* RWD dla menu */
+@media (max-width: 600px) {
+	.menu-grid {
+		grid-template-columns: 1fr;
+	}
+	.menu-hero h1 {
+		font-size: 2.5rem;
+	}
+}
+/* --- STYLE STRONY KONTAKT --- */
+
+.contact-section {
+	padding: 80px 0;
+}
+
+.contact-grid {
+	display: grid;
+	grid-template-columns: 1fr 1.5fr;
+	gap: 80px;
+	align-items: start;
+}
+
+.info-item {
+	margin-bottom: 40px;
+}
+
+.info-item p {
+	font-size: 1.2rem;
+	margin-top: 10px;
+}
+
+.social-links {
+	margin-top: 15px;
+	display: flex;
+	gap: 20px;
+}
+
+.social-links a {
+	color: var(--light-green);
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 0.9rem;
+	transition: var(--transition);
+}
+
+.social-links a:hover {
+	color: var(--text-white);
+	letter-spacing: 1px;
+}
+
+/* FORMULARZ */
+.contact-form {
+	background: #111;
+	padding: 40px;
+	border: 1px solid var(--bottle-green);
+}
+
+.form-group {
+	margin-bottom: 25px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	color: var(--light-green);
+	letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group textarea {
+	width: 100%;
+	padding: 12px;
+	background: var(--bg-black);
+	border: 1px solid #333;
+	color: white;
+	font-family: "Montserrat", sans-serif;
+	transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+	outline: none;
+	border-color: var(--light-green);
+	box-shadow: 0 0 10px rgba(0, 89, 74, 0.2);
+}
+
+/* MAPA - DARK MODE EFFECT */
+.map-section {
+	line-height: 0; /* Usuwa lukę pod mapą */
+}
+
+.dark-map iframe {
+	filter: grayscale(100%) invert(90%) contrast(90%);
+	opacity: 0.8;
+	transition: var(--transition);
+}
+
+.dark-map iframe:hover {
+	filter: grayscale(50%) invert(90%);
+	opacity: 1;
+}
+
+/* RESPONSYWNOŚĆ KONTAKTU */
+@media (max-width: 900px) {
+	.contact-grid {
+		grid-template-columns: 1fr;
+		gap: 50px;
+	}
+	.contact-form {
+		padding: 20px;
+	}
+}
+/* --- STYLE STRONY O NAS --- */
+
+.about-hero-bg {
+	background:
+		linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+		url("https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1600")
+			center/cover;
+}
+
+.story-section {
+	padding: 100px 0;
+}
+
+.story-block {
+	display: flex;
+	align-items: center;
+	gap: 100px;
+	margin-bottom: 120px;
+}
+
+.story-block.reverse {
+	flex-direction: row-reverse;
+}
+
+.story-text {
+	flex: 1;
+}
+
+.story-text h2 {
+	font-family: "Playfair Display", serif;
+	font-size: 2.5rem;
+	margin-bottom: 30px;
+	color: var(--light-green);
+}
+
+.story-text p {
+	margin-bottom: 20px;
+	font-size: 1.1rem;
+	color: #ccc;
+}
+
+.story-image {
+	flex: 1;
+}
+
+.image-box {
+	width: 100%;
+	height: 450px;
+	background: var(--bottle-green);
+	position: relative;
+	border: 1px solid var(--light-green);
+}
+
+/* Dekoracyjne ramki pod zdjęciami */
+.decor-1::after {
+	content: "";
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	width: 100%;
+	height: 100%;
+	border: 2px solid var(--light-green);
+	z-index: -1;
+}
+
+.decor-2::after {
+	content: "";
+	position: absolute;
+	bottom: -20px;
+	right: -20px;
+	width: 100%;
+	height: 100%;
+	border: 2px solid var(--accent);
+	z-index: -1;
+}
+
+/* SEKACJA STATYSTYK */
+.stats-section {
+	background: #050505;
+	padding: 80px 0;
+	border-top: 1px solid var(--bottle-green);
+	border-bottom: 1px solid var(--bottle-green);
+}
+
+.stats-grid {
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+}
+
+.stat-num {
+	display: block;
+	font-family: "Playfair Display", serif;
+	font-size: 3.5rem;
+	color: var(--light-green);
+	font-weight: bold;
+}
+
+.stat-item p {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 0.8rem;
+	color: #888;
+}
+
+/* RWD DLA O NAS */
+@media (max-width: 900px) {
+	.story-block,
+	.story-block.reverse {
+		flex-direction: column;
+		gap: 50px;
+		text-align: center;
+	}
+	.stats-grid {
+		flex-direction: column;
+		gap: 40px;
+	}
+	.story-block {
+		flex-direction: column !important; /* Wymuszamy pionowy układ */
+		gap: 40px;
+	}
+
+	.image-box {
+		height: 300px; /* Tutaj nadajemy wysokość, bo inaczej na mobile znika */
+		width: 100%;
+		display: block;
+	}
+
+	.story-image {
+		width: 100%; /* Rozciągamy kontener na całą szerokość telefonu */
+		flex: none; /* Wyłączamy flex:1, który powoduje zapadanie się na mobile */
+	}
+}
+
+.about-image {
+	width: 100%;
+	height: 400px;
+	background-size: cover;
+	background-position: center;
+	position: relative; /* To jest kluczowe */
+	z-index: 1; /* Kontener jest nisko */
+}

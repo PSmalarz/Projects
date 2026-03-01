@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Nasza Historia | Pochita Korean Bar</title>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<header class="navbar">
+			<div class="container">
+				<a href="index.html" class="logo">POCHITA<span>.</span></a>
+				<nav class="nav-links" id="navLinks">
+					<a href="index.html">Home</a>
+					<a href="o-nas.html" class="active-link">O nas</a>
+					<a href="menu.html">Menu</a>
+					<a href="kontakt.html">Kontakt</a>
+				</nav>
+				<div class="hamburger" id="hamburger">
+					<span></span><span></span><span></span>
+				</div>
+			</div>
+		</header>
+
+		<section class="menu-hero about-hero-bg">
+			<div class="container text-center fade-in">
+				<span class="subtitle">Poznaj nas bliżej</span>
+				<h1>Pasja wykuta w neonach</h1>
+			</div>
+		</section>
+
+		<section class="story-section">
+			<div class="container">
+				<div class="story-block">
+					<div class="story-text fade-in">
+						<h2>Zaułek w Seulu, Serce w Polsce</h2>
+						<p>
+							Wszystko zaczęło się od jednej podróży do dzielnicy Euljiro w
+							Seulu. Tam, wśród wąskich alejek i ukrytych barów *Pojangmacha*,
+							odkryliśmy, że jedzenie smakuje najlepiej, gdy dzieli się je z
+							przyjaciółmi pod gołym niebem, przy blasku neonów.
+						</p>
+						<p>
+							<strong>Pochita</strong> narodziła się z tęsknoty za tą
+							autentycznością. Chcieliśmy przenieść ten niepodrabialny klimat –
+							mieszankę surowego industrialu, butelkowej zieleni seulskich nocy
+							i smaku, który rozpala zmysły.
+						</p>
+					</div>
+					<div class="story-image">
+						<div
+							class="image-box decor-1"
+							style="
+								background-image: url(&quot;https://images.unsplash.com/photo-1597552661064-af143a5f3bee?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&quot;);
+								background-size: cover;
+								background-position: center;
+							"
+						></div>
+					</div>
+				</div>
+
+				<div class="story-block reverse">
+					<div class="story-text fade-in">
+						<h2>Nasza Filozofia</h2>
+						<p>
+							W Pochicie nie uznajemy kompromisów. Nasze Kimchi fermentuje
+							dokładnie tyle, ile wymaga tradycja, a kurczak KFC przechodzi
+							proces podwójnego smażenia, by osiągnąć idealną chrupkość.
+						</p>
+						<p>
+							Wierzymy w <em>Jeong</em> – koreańskie pojęcie głębokiego
+							przywiązania i gościnności. Chcemy, aby każdy, kto przekroczy próg
+							naszej zielonej oazy, poczuł się częścią naszej opowieści.
+						</p>
+					</div>
+					<div class="story-image">
+						<div
+							class="image-box decor-2"
+							style="
+								background-image: url(&quot;https://images.unsplash.com/photo-1661366394743-fe30fe478ef7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&quot;);
+								background-size: cover;
+								background-position: center;
+							"
+						></div>
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="stats-section">
+			<div class="container">
+				<div class="stats-grid">
+					<div class="stat-item">
+						<span class="stat-num">12h</span>
+						<p>Marynowania mięsa</p>
+					</div>
+					<div class="stat-item">
+						<span class="stat-num">24</span>
+						<p>Rodzaje Soju</p>
+					</div>
+					<div class="stat-item">
+						<span class="stat-num">100%</span>
+						<p>Pasji do K-Food</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="footer-grid">
+					<div class="footer-info">
+						<h3>POCHITA</h3>
+						<p>ul. Koreańska 24, Warszawa</p>
+						<p>Rezerwacje: +48 123 456 789</p>
+					</div>
+					<div class="footer-hours">
+						<h4>Godziny otwarcia</h4>
+						<p>Pn-Czw: 16:00 - 23:00</p>
+						<p>Pt-Sb: 16:00 - 02:00</p>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					&copy; 2026 Pochita Korean Bar. Wszelkie prawa zastrzeżone.
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			const hamburger = document.getElementById("hamburger");
+			const navLinks = document.getElementById("navLinks");
+			hamburger.addEventListener("click", () => {
+				navLinks.classList.toggle("active");
+				hamburger.classList.toggle("toggle");
+			});
+		</script>
+	</body>
+</html>
