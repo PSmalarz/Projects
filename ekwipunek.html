@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kocia Kolekcja 🐾 | Projekt</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .inventory-section { padding: 40px 0; min-height: 80vh; }
+        .inventory-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .cat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .cat-card:hover { transform: translateY(-5px); border-color: #9b5cff; }
+        .cat-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
+        .cat-card.locked { filter: grayscale(1) brightness(0.4); opacity: 0.6; cursor: not-allowed; }
+        .cat-name { font-size: 0.85rem; font-weight: 600; color: #fff; }
+        
+        /* Kolory rzadkości */
+        .rarity-Common { border-bottom: 4px solid #888; }
+        .rarity-Rare { border-bottom: 4px solid #3498db; }
+        .rarity-Epic { border-bottom: 4px solid #9b5cff; }
+        .rarity-Legendary { border-bottom: 4px solid #f1c40f; box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
+
+        .modal-content { background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: #fff; }
+        #modalImg { border-radius: 15px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="blob-bg"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top custom-nav">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">PIOTREK<span class="dot">.</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="projekty.html">Projekty</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fotografia.html">Fotografia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kontakt.html">O mnie</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="inventory-section">
+        <div class="container" data-aos="fade-up">
+            <div class="inventory-card">
+                <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                    <div>
+                        <h2 class="fw-bold text-gradient mb-1">Twoja Kolekcja</h2>
+                        <p class="text-secondary-custom small mb-0" id="collectionCounter">Ładowanie...</p>
+                    </div>
+                    <div class="mt-3 mt-md-0">
+                        <button class="btn btn-purple-primary btn-sm filter-btn" data-filter="all">Wszystkie</button>
+                        <button class="btn btn-outline-light btn-sm filter-btn" data-filter="Common">Powszechny</button>
+                        <button class="btn btn-outline-light btn-sm filter-btn" data-filter="Epic">Epickie</button>
+                        <button class="btn btn-outline-light btn-sm filter-btn" data-filter="Mythic">Mityczny</button>
+                    </div>
+                </div>
+                <div class="grid" id="catGrid"></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="catModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 text-center">
+                <div class="modal-body">
+                    <img id="modalImg" src="" class="mb-3">
+                    <h3 id="modalName" class="fw-bold text-gradient"></h3>
+                    <p id="modalDesc" class="text-secondary-custom"></p>
+                    <hr class="opacity-10">
+                    <small id="modalDate" class="text-muted"></small>
+                    <button class="btn btn-purple-primary w-100 mt-3" data-bs-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // 1. DOKŁADNIE TEN SAM KLUCZ CO W kotkilosowanie2.html
+        const STORAGE_KEY = "unlocked_cats";
+        
+        // 2. TĘ LISTĘ SKOPIUJ ZE SWOJEGO PLIKU LOSOWANIA (CAŁĄ!)
+        const kotkiData = [
+            {
+					file: 1,
+					name: "Mistrz Drzemki",
+					desc: "Dziś jesteś offline i absolutnie nikogo to nie obchodzi.",
+					rarity: "Common",
+				},
+				{
+					file: 2,
+					name: "Kot Starzec",
+					desc: "Wstałeś źle, usiadłeś jeszcze gorzej, a teraz pozostało tylko narzekanie.",
+					rarity: "Epic",
+				},
+				{
+					file: 3,
+					name: "Kot po przeżyciach",
+					desc: "Nie wiesz co się stało, ale na pewno było intensywnie.",
+					rarity: "Epic",
+				},
+				{
+					file: 4,
+					name: "Myśl… a Nie, Jednak Nie",
+					desc: "Masz genialną myśl, szkoda tylko, że zniknęła sekundę później.",
+					rarity: "Epic",
+				},
+				{
+					file: 5,
+					name: "Nie Słyszę, Nie Widzę",
+					desc: "Dziś selektywne słyszenie wjechało na pełnej.",
+					rarity: "Epic",
+				},
+				{
+					file: 6,
+					name: "Powiedz Mi To Prosto w Pysk",
+					desc: "Masz poważną minę i zero cierpliwości do głupot.",
+					rarity: "Epic",
+				},
+				{
+					file: 7,
+					name: "Kot Więzień",
+					desc: "To nie była Twoja wina… ale i tak ktoś wezwał kocie służby.",
+					rarity: "Epic",
+				},
+				{
+					file: 8,
+					name: "Mały Strachulec",
+					desc: "Trzymasz się życia (i nogi) jakby zaraz miał się skończyć świat.",
+					rarity: "Epic",
+				},
+				{
+					file: 9,
+					name: "Kot Oceniający",
+					desc: "Nic nie mówisz, ale wszyscy wiedzą, co myślisz.",
+					rarity: "Common",
+				},
+				{
+					file: 10,
+					name: "Kot Śmieszek",
+					desc: "Beka z ciebie ziomek.",
+					rarity: "Epic",
+				},
+				{
+					file: 11,
+					name: "Kot Fit",
+					desc: "Coś poszło nie tak, owoce zepsute, dieta od jutra.",
+					rarity: "Epic",
+				},
+				{
+					file: 12,
+					name: "Va Banque",
+					desc: "Oddajesz wszystko, bo i tak już wszystko jedno.",
+					rarity: "Epic",
+				},
+				{
+					file: 13,
+					name: "Kot Fantazja",
+					desc: "Dziś jesteś magiczny i lekko niebezpieczny.",
+					rarity: "Epic",
+				},
+				{
+					file: 14,
+					name: "Śpioch Ekstremalny",
+					desc: "Sen wszedł za mocno i nie planuje wychodzić.",
+					rarity: "Common",
+				},
+				{
+					file: 15,
+					name: "Kot Adrenalina",
+					desc: "To był zły pomysł… ale już za późno.",
+					rarity: "Epic",
+				},
+				{
+					file: 16,
+					name: "Ja Mam Pytanie",
+					desc: "Chcesz coś powiedzieć, ale sam nie wiesz co.",
+					rarity: "Common",
+				},
+				{
+					file: 17,
+					name: "Kot Strażnik",
+					desc: "To mój ogon, nie oddam go dziś.",
+					rarity: "Epic",
+				},
+				{
+					file: 18,
+					name: "Emocjonalny Chaos",
+					desc: "Jednocześnie wszystko i nic, klasyczny dzień.",
+					rarity: "Epic",
+				},
+				{
+					file: 19,
+					name: "Szef Kuchni",
+					desc: "Gotujesz, ale nikt nie wie, czy to bezpieczne.",
+					rarity: "Epic",
+				},
+				{
+					file: 20,
+					name: "Kot Budyń",
+					desc: "Miało być elegancko, wyszło jak zawsze.",
+					rarity: "Common",
+				},
+				{
+					file: 21,
+					name: "Kot Wojownik",
+					desc: "Nie zaczynałeś wojny… ale jesteś gotowy ją wygrać.",
+					rarity: "Epic",
+				},
+				{
+					file: 22,
+					name: "Dobry Dzień Kotku",
+					desc: "Masz dziś energię do interakcji. Krótko, ale masz.",
+					rarity: "Common",
+				},
+				{
+					file: 23,
+					name: "Podwójna Moc",
+					desc: "Masz tak dobry humor, że rozdajesz go na lewo i prawo.",
+					rarity: "Common",
+				},
+				{
+					file: 24,
+					name: "Kot Muzyk",
+					desc: "Muzyka gra, rzeczywistość nie istnieje.",
+					rarity: "Epic",
+				},
+				{
+					file: 25,
+					name: "Kot Informatyk",
+					desc: "Nie dotykaj. Ja to naprawię (dalej nie działa).",
+					rarity: "Common",
+				},
+				{
+					file: 26,
+					name: "Myśl… Znikła",
+					desc: "Znowu miałeś genialny plan, ale uciekł szybciej niż motywacja.",
+					rarity: "Epic",
+				},
+				{
+					file: 27,
+					name: "Smutny Kartofelek",
+					desc: "Siedzisz i myślisz, co poszło nie tak… wszystko.",
+					rarity: "Common",
+				},
+				{
+					file: 28,
+					name: "Kot Zmęczony Życiem",
+					desc: "Siedzisz przy stole jakbyś właśnie skończył 12-godzinny dzień życia.",
+					rarity: "Common",
+				},
+				{
+					file: 29,
+					name: "Pan Prezes",
+					desc: "Wyglądasz poważnie, choć nie do końca wiesz dlaczego.",
+					rarity: "Epic",
+				},
+				{
+					file: 30,
+					name: "Elegancja Sama w Sobie",
+					desc: "Dziś czujesz się ładnie i świat musi to zaakceptować.",
+					rarity: "Epic",
+				},
+				{
+					file: 31,
+					name: "Bezpieczna Kryjówka",
+					desc: "Ukryłeś się i nie planujesz wracać do rzeczywistości, nie w tych czystych stópkach.",
+					rarity: "Common",
+				},
+				{
+					file: 32,
+					name: "Świąteczny Sabotażysta",
+					desc: "Niby niewinnie, ale zaraz coś zgaśnie.",
+					rarity: "Common",
+				},
+				{
+					file: 33,
+					name: "Kot Oreo",
+					desc: "Tylko jednego… no dobra, jeszcze jednego.",
+					rarity: "Common",
+				},
+				{
+					file: 34,
+					name: "Rudy Relaks",
+					desc: "Przeciągasz się, bo życie i tak poczeka.",
+					rarity: "Common",
+				},
+				{
+					file: 35,
+					name: "Kot Zakładnik",
+					desc: "Nie twoja decyzja, ale stres jak najbardziej twój.",
+					rarity: "Epic",
+				},
+				{
+					file: 36,
+					name: "Kot Filozof od Piwa",
+					desc: "Dziś życiowe prawdy przychodzą po kilku łykach.",
+					rarity: "Epic",
+				},
+				{
+					file: 37,
+					name: "Gwiazda Programu",
+					desc: "Nie wiesz czemu, ale wszyscy patrzą właśnie na Ciebie.",
+					rarity: "Common",
+				},
+				{
+					file: 38,
+					name: "Kot Refleksyjny",
+					desc: "Patrzysz w dal i udajesz, że masz wszystko pod kontrolą.",
+					rarity: "Common",
+				},
+				{
+					file: 39,
+					name: "Kot Po Pracy",
+					desc: "To był dzień, który zasługiwał na zakończenie.",
+					rarity: "Epic",
+				},
+				{
+					file: 40,
+					name: "Kot Detektyw",
+					desc: "Widzisz wszystko. I wszystkim trochę nie ufasz.",
+					rarity: "Common",
+				},
+				{
+					file: 41,
+					name: "Kot Melancholia",
+					desc: "Leżysz tak i rozmyślasz, jakby to była scena z filmu.",
+					rarity: "Common",
+				},
+				{
+					file: 42,
+					name: "Kot z Alternatywnej Rzeczywistości",
+					desc: "Jedna część Ciebie ogarnia, druga już dawno odpadła.",
+					rarity: "Common",
+				},
+				{
+					file: 43,
+					name: "Kot Szczęście",
+					desc: "Daj mi jeszcze chwilę, jest idealnie.",
+					rarity: "Common",
+				},
+				{
+					file: 44,
+					name: "Kot w Tarapatach",
+					desc: "Niby nic nie robiłeś, a jakoś się zaplątało.",
+					rarity: "Common",
+				},
+				{
+					file: 45,
+					name: "Kot Niepokój",
+					desc: "Siedzisz w kącie i obserwujesz… na wszelki wypadek.",
+					rarity: "Common",
+				},
+				{
+					file: 46,
+					name: "Kot Głodomór",
+					desc: "Dlaczego świat nie pozwala Ci być szczęśliwym?",
+					rarity: "Common",
+				},
+				{
+					file: 47,
+					name: "Kot Degustator",
+					desc: "Jesz, ale z pełną kontrolą sytuacji (teoretycznie).",
+					rarity: "Common",
+				},
+				{
+					file: 48,
+					name: "Kot Bohater",
+					desc: "Śpisz spokojnie, bo ktoś czuwa. Nawet jeśli to maskotka.",
+					rarity: "Epic",
+				},
+				{
+					file: 49,
+					name: "Kot Diabelski",
+					desc: "Trochę chaosu nikomu jeszcze nie zaszkodziło.",
+					rarity: "Epic",
+				},
+				{
+					file: 50,
+					name: "Kot Wkurzony",
+					desc: "Nie podchodź. Serio. To nie jest dobry moment.",
+					rarity: "Common",
+				},
+				{
+					file: 51,
+					name: "Mechanik z Marzeń",
+					desc: "Niby w koszulce Ferrari, ale i tak robisz wszystko na czuja.",
+					rarity: "Epic",
+				},
+				{
+					file: 52,
+					name: "Kot Spokój w Chaosie",
+					desc: "Idziesz dalej, mimo że za Tobą właśnie płonie świat.",
+					rarity: "Epic",
+				},
+				{
+					file: 53,
+					name: "Kot Zachwyt",
+					desc: "Ale fajny kot… czekaj, to ja!",
+					rarity: "Common",
+				},
+				{
+					file: 54,
+					name: "Zdziwienie Poziom Hard",
+					desc: "Ty zdziwiony, Ty z tyłu też zdziwiony, nic się nie zgadza.",
+					rarity: "Common",
+				},
+				{
+					file: 55,
+					name: "Kot Roboczy",
+					desc: "Dziś jesteś tu do zadań specjalnych (albo przynajmniej tak wyglądasz).",
+					rarity: "Common",
+				},
+				{
+					file: 56,
+					name: "Chaos na Czterech Łapach",
+					desc: "Niby zabawa, niby wojna, czyli klasyk.",
+					rarity: "Common",
+				},
+				{
+					file: 57,
+					name: "Kot Nocny Myśliciel",
+					desc: "Siedzisz na ławce i rozkminiasz życie po godzinach.",
+					rarity: "Common",
+				},
+				{
+					file: 58,
+					name: "Kot Influencer",
+					desc: "Selfik musi być, człowiek się jakoś załapie w tle.",
+					rarity: "Epic",
+				},
+				{
+					file: 59,
+					name: "Absolute Kot",
+					desc: "To moment, w którym wszystko jest kinem.",
+					rarity: "Epic",
+				},
+				{
+					file: 60,
+					name: "Kołdrowy Król",
+					desc: "To jest moje miejsce i nigdzie się nie ruszam.",
+					rarity: "Common",
+				},
+				{
+					file: 61,
+					name: "Kot Oskarżyciel",
+					desc: "To on. Zawsze to on.",
+					rarity: "Common",
+				},
+				{
+					file: 62,
+					name: "Zero Wstydu",
+					desc: "Pokazujesz to, co myślisz o całej sytuacji.",
+					rarity: "Common",
+				},
+				{
+					file: 63,
+					name: "Kot Ambicja",
+					desc: "Sięgasz wyżej, niż sam się spodziewałeś.",
+					rarity: "Common",
+				},
+				{
+					file: 64,
+					name: "Kołdrowy Filozof",
+					desc: "Myślisz, ale tylko trochę, reszta jutro.",
+					rarity: "Common",
+				},
+				{
+					file: 65,
+					name: "Puszysta Poduszka",
+					desc: "Leżysz i wyglądasz jak sens życia.",
+					rarity: "Common",
+				},
+				{
+					file: 66,
+					name: "Gruby Myśliciel",
+					desc: "Dużo ciała, dużo refleksji.",
+					rarity: "Common",
+				},
+				{
+					file: 67,
+					name: "Tyłek do Świata",
+					desc: "Nie dziś. Dziś nie dla ludzi.",
+					rarity: "Common",
+				},
+				{
+					file: 68,
+					name: "Kot Szatan",
+					desc: "Niby drapak, ale energia jak z horroru.",
+					rarity: "Epic",
+				},
+				{
+					file: 69,
+					name: "Perfekcyjna Łapka",
+					desc: "Dziś detale robią robotę.",
+					rarity: "Common",
+				},
+				{
+					file: 70,
+					name: "Kot Konsultant",
+					desc: "Proszę się nie rozłączać, zaraz będę wkurzony.",
+					rarity: "Common",
+				},
+				{
+					file: 71,
+					name: "Kot Buforowanie",
+					desc: "Myśl się ładuje… proszę czekać.",
+					rarity: "Common",
+				},
+				{
+					file: 72,
+					name: "Face Reveal",
+					desc: "Oto ja. Teraz możecie klaskać.",
+					rarity: "Common",
+				},
+				{
+					file: 73,
+					name: "Kot Bez Dystansu",
+					desc: "Halo, to jest za blisko.",
+					rarity: "Common",
+				},
+				{
+					file: 74,
+					name: "Kot Smutna Chwila",
+					desc: "Siedzisz i pozwalasz sobie na moment ciszy.",
+					rarity: "Common",
+				},
+				{
+					file: 75,
+					name: "Kot Podryw",
+					desc: "Nie wiesz co powiedzieć, ale liczysz na spojrzenie.",
+					rarity: "Epic",
+				},
+				{
+					file: 76,
+					name: "Mały Wkurz",
+					desc: "Niewielki rozmiar, ogromne emocje.",
+					rarity: "Common",
+				},
+				{
+					file: 77,
+					name: "Kot Zachwyt",
+					desc: "Patrzysz tak, jakbyś właśnie zobaczył sens życia.",
+					rarity: "Common",
+				},
+				{
+					file: 78,
+					name: "Szok Totalny",
+					desc: "Nie wiesz co się dzieje i boisz się zapytać.",
+					rarity: "Common",
+				},
+				{
+					file: 79,
+					name: "Kot Kociarz",
+					desc: "Oddaj koc. Teraz. Natychmiast.",
+					rarity: "Epic",
+				},
+				{
+					file: 80,
+					name: "Kot Samoświadomość",
+					desc: "Nie zgadzasz się, ale trochę jednak tak.",
+					rarity: "Epic",
+				},
+				{
+					file: 81,
+					name: "Nerwy w Ramionach",
+					desc: "Nie dotykaj, bo będzie awantura.",
+					rarity: "Common",
+				},
+				{
+					file: 82,
+					name: "Kot Uszaty",
+					desc: "Coś tu jest nie tak… ale trudno powiedzieć co.",
+					rarity: "Epic",
+				},
+				{
+					file: 83,
+					name: "Kot Przyłapany",
+					desc: "To nie ja. To się samo rozsypało.",
+					rarity: "Common",
+				},
+				{
+					file: 84,
+					name: "Kot Podróżnik",
+					desc: "Jesteś spakowany emocjonalnie i gotowy na ucieczkę.",
+					rarity: "Common",
+				},
+				{
+					file: 85,
+					name: "Kot Decyzja",
+					desc: "Zanim pomyślisz, już lecisz.",
+					rarity: "Common",
+				},
+				{
+					file: 86,
+					name: "Kot Pokusa",
+					desc: "Brzuch pełny, ale serce chce frytki.",
+					rarity: "Epic",
+				},
+				{
+					file: 87,
+					name: "Zdziwiony Egzemplarz",
+					desc: "Nie spodziewałeś się tego absolutnie wcale.",
+					rarity: "Common",
+				},
+				{
+					file: 88,
+					name: "Trójkąt Emocji",
+					desc: "Każdy przeżywa to zupełnie inaczej.",
+					rarity: "Epic",
+				},
+				{
+					file: 89,
+					name: "Kot Sowa",
+					desc: "Mądry wygląd, chaos w środku.",
+					rarity: "Common",
+				},
+
+				{
+					file: 90,
+					name: "Kot na Doładowaniu",
+					desc: "Energia: 3%. Proszę nie przeszkadzać.",
+					rarity: "Epic",
+				},
+				{
+					file: 91,
+					name: "Kot Kibol",
+					desc: "Nie chcesz bójki, ale jesteś gotowy.",
+					rarity: "Epic",
+				},
+				{
+					file: 92,
+					name: "Gruby Komfort",
+					desc: "Ktoś Cię ściska i nawet jest okej.",
+					rarity: "Common",
+				},
+				{
+					file: 93,
+					name: "Kot Po Przerwie",
+					desc: "Nie pytaj. To skomplikowane.",
+					rarity: "Epic",
+				},
+				{
+					file: 94,
+					name: "Kot Myśliciel",
+					desc: "Myślisz intensywnie, choć nie do końca wiesz o czym, ale czymś fajnym.",
+					rarity: "Common",
+				},
+				{
+					file: 95,
+					name: "Kot Pracownik Biurowy",
+					desc: "Niby siedzisz, niby pracujesz, ale jednak wróciłbyś do domu.",
+					rarity: "Epic",
+				},
+				{
+					file: 96,
+					name: "Kot Rozlany",
+					desc: "Tak się śpi, kiedy życie jest ciężkie.",
+					rarity: "Common",
+				},
+				{
+					file: 97,
+					name: "Kot Mleczny Wąs",
+					desc: "Piłeś jak profesjonalista, wyszło gorzej.",
+					rarity: "Common",
+				},
+				{
+					file: 98,
+					name: "Kot Grawitacja",
+					desc: "To było złe miejsce i zły moment.",
+					rarity: "Epic",
+				},
+				{
+					file: 99,
+					name: "Kot Jesienny",
+					desc: "Liść dodał charakteru, nie pytaj.",
+					rarity: "Epic",
+				},
+				{
+					file: 100,
+					name: "Kot Dezorientacja",
+					desc: "Coś się wydarzyło… ale nie pamiętasz co.",
+					rarity: "Common",
+				},
+				{
+					file: 101,
+					name: "Kot Ostrzeżenie",
+					desc: "Patrzysz tak, że wszyscy wiedzą: lepiej nie teraz.",
+					rarity: "Common",
+				},
+				{
+					file: 102,
+					name: "Kot Kanapowy Wojownik",
+					desc: "Bronisz swojego miejsca i pilota. Bez dyskusji.",
+					rarity: "Epic",
+				},
+				{
+					file: 103,
+					name: "Kot Gracz Survival",
+					desc: "Straciłeś itemy, plan i pozostało tylko zero energii.",
+					rarity: "Epic",
+				},
+				{
+					file: 104,
+					name: "Kot Piekarz",
+					desc: "Miało być szybko, wyszło… biało.",
+					rarity: "Common",
+				},
+				{
+					file: 105,
+					name: "Kot Samoocena",
+					desc: "Nie zgadzasz się, ale humor już poszedł.",
+					rarity: "Common",
+				},
+				{
+					file: 106,
+					name: "Kot Tryb Nocny",
+					desc: "Ekran świeci, oczy jeszcze bardziej.",
+					rarity: "Common",
+				},
+				{
+					file: 107,
+					name: "Kot Śpioch",
+					desc: "Z taką poduszką i kocykiem, można przespać wszystko.",
+					rarity: "Common",
+				},
+				{
+					file: 108,
+					name: "Kot Skarga",
+					desc: "ON ZNOWU. ZRÓBCIE COŚ.",
+					rarity: "Common",
+				},
+				{
+					file: 109,
+					name: "Kot Niewinność",
+					desc: "Nic nie zrobiłeś. I będziesz się tego trzymać.",
+					rarity: "Common",
+				},
+				{
+					file: 110,
+					name: "Kot „Wow”",
+					desc: "Nie wiedziałeś, że tak można, ale można.",
+					rarity: "Common",
+				},
+				{
+					file: 111,
+					name: "Kot Odkrycie",
+					desc: "Okej, to jest najlepszy moment dnia.",
+					rarity: "Epic",
+				},
+				{
+					file: 112,
+					name: "Kot Co Właśnie",
+					desc: "Nie jesteś gotowy na tę informację.",
+					rarity: "Common",
+				},
+				{
+					file: 113,
+					name: "Kot Natura",
+					desc: "Wtopiłeś się w otoczenie… przypadkiem.",
+					rarity: "Common",
+				},
+				{
+					file: 114,
+					name: "Kot Urodzinowy",
+					desc: "Dziś wszystko kręci się wokół Ciebie. Jak zawsze.",
+					rarity: "Epic",
+				},
+				{
+					file: 115,
+					name: "Kot Pielęgniarka",
+					desc: "Spokojnie, to tylko wygląda profesjonalnie.",
+					rarity: "Epic",
+				},
+				{
+					file: 116,
+					name: "Kot Mroczna Gotowość",
+					desc: "Nie atakujesz pierwszy, ale jesteś gotów.",
+					rarity: "Epic",
+				},
+				{
+					file: 117,
+					name: "Kot Banan",
+					desc: "Nie wiesz czemu, ale akceptujesz, kim jesteś.",
+					rarity: "Epic",
+				},
+				{
+					file: 118,
+					name: "Kot Gamer",
+					desc: "Jeszcze jedna runda i idziesz spać. Na pewno, na przegranej się nie kończy.",
+					rarity: "Epic",
+				},
+				{
+					file: 119,
+					name: "Kot Refleksja",
+					desc: "Siedzisz i myślisz, dokąd to wszystko zmierza.",
+					rarity: "Common",
+				},
+				{
+					file: 120,
+					name: "Kot Agresywna Motywacja",
+					desc: "To nie atak. To zachęta.",
+					rarity: "Common",
+				},
+				{
+					file: 121,
+					name: "Kot Fajerwerk",
+					desc: "Trochę za mocno, ale efekt jest.",
+					rarity: "Common",
+				},
+				{
+					file: 122,
+					name: "Kot Boski Dotyk",
+					desc: "To chwila, w której czujesz sens istnienia.",
+					rarity: "Mythic",
+				},
+				{
+					file: 123,
+					name: "Kot Aprobatka",
+					desc: "Jest okej. Można iść dalej.",
+					rarity: "Common",
+				},
+				{
+					file: 124,
+					name: "Kot Pizza Reality Check",
+					desc: "Patrzysz i wiesz, że to już za chwilkę będzie wyżerka życia.",
+					rarity: "Epic",
+				},
+				{
+					file: 125,
+					name: "Kot IT Duo",
+					desc: "Jeden klika, drugi udaje, że rozumie.",
+					rarity: "Common",
+				},
+				{
+					file: 126,
+					name: "Kot w Plecaku",
+					desc: "Zamknięty, ale emocje się nie mieszczą.",
+					rarity: "Common",
+				},
+				{
+					file: 127,
+					name: "Kot Bandyta",
+					desc: "To eskalowało szybciej, niż planowałeś.",
+					rarity: "Epic",
+				},
+				{
+					file: 128,
+					name: "Kot Romantyk",
+					desc: "Nie wiesz co powiedzieć, więc dajesz wszystko.",
+					rarity: "Epic",
+				},
+				{
+					file: 129,
+					name: "Kot Zaskoczenie",
+					desc: "Nie spodziewałeś się tego absolutnie wcale.",
+					rarity: "Common",
+				},
+				{
+					file: 130,
+					name: "Kot Coach",
+					desc: "To ja tu decyduję, co robimy w tym meczu.",
+					rarity: "Common",
+				},
+				{
+					file: 131,
+					name: "Kot Żołnierz",
+					desc: "Stoisz dumnie. Czekasz na rozkazy.",
+					rarity: "Epic",
+				},
+        ];
+
+        function getUnlocked() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            } catch(e) { return []; }
+        }
+
+        function renderGrid(filter = "all") {
+            const unlocked = getUnlocked();
+            const grid = document.getElementById("catGrid");
+            grid.innerHTML = "";
+
+            kotkiData.forEach(cat => {
+                // Filtrowanie (zwróć uwagę na wielkość liter w rarity!)
+                if (filter !== "all" && cat.rarity !== filter) return;
+
+                // Sprawdzanie czy kotek jest odblokowany
+                const record = unlocked.find(u => u.id === cat.file);
+                const isOwned = !!record;
+
+                const div = document.createElement("div");
+                div.className = `cat-card rarity-${cat.rarity} ${isOwned ? "" : "locked"}`;
+                
+                // USTAWIENIE POPRAWNEJ ŚCIEŻKI DO ZDJĘĆ
+                const imgSrc = `img/kotki/${cat.file}.jpg`;
+
+                div.innerHTML = `
+                    <img src="${imgSrc}" onerror="this.src='https://placehold.co/200?text=Brak+Foto'">
+                    <div class="cat-name">${isOwned ? cat.name : "???"}</div>
+                    <div class="small text-muted">${isOwned ? "" : cat.rarity}</div>
+                `;
+
+                if (isOwned) {
+                    div.onclick = () => openModal(cat, record.date);
+                }
+                grid.appendChild(div);
+            });
+
+            document.getElementById("collectionCounter").textContent = 
+                `Odblokowane: ${unlocked.length} / ${kotkiData.length}`;
+        }
+
+        function openModal(cat, date) {
+            document.getElementById("modalImg").src = `img/kotki/${cat.file}.jpg`;
+            document.getElementById("modalName").textContent = cat.name;
+            document.getElementById("modalDesc").textContent = cat.desc;
+            document.getElementById("modalDate").textContent = "Złapany: " + new Date(date).toLocaleDateString();
+            new bootstrap.Modal(document.getElementById('catModal')).show();
+        }
+
+        // Obsługa filtrów
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll(".filter-btn").forEach(b => {
+                    b.classList.replace('btn-purple-primary', 'btn-outline-light');
+                });
+                this.classList.replace('btn-outline-light', 'btn-purple-primary');
+                renderGrid(this.dataset.filter);
+            });
+        });
+
+        // Start
+        window.onload = () => renderGrid();
+    </script>
+</body>
+</html>

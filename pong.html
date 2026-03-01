@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ping Pong | Projekt</title>
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="style.css" />
+
+		<style>
+			.game-section {
+				padding: 40px 0;
+				min-height: 80vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.game-card {
+				background: var(--glass);
+				border: 1px solid var(--glass-border);
+				backdrop-filter: blur(15px);
+				border-radius: 28px;
+				padding: 30px;
+				box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+				max-width: 900px;
+				width: 100%;
+			}
+			canvas {
+				background: linear-gradient(#0c0718, #14082b);
+				border-radius: 15px;
+				max-width: 100%;
+				height: auto;
+				display: block;
+				margin: 20px auto;
+				border: 1px solid rgba(155, 92, 255, 0.3);
+				box-shadow: 0 0 20px rgba(155, 92, 255, 0.1);
+			}
+			.controls-overlay {
+				margin-top: 20px;
+			}
+			.btn-group-custom .btn {
+				margin: 5px;
+				min-width: 120px;
+			}
+			#restartBtn {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 100;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="blob-bg"></div>
+
+		<nav class="navbar navbar-expand-lg navbar-dark sticky-top custom-nav">
+			<div class="container">
+				<a class="navbar-brand fw-bold" href="index.html"
+					>PIOTREK<span class="dot">.</span></a
+				>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="projekty.html">Projekty</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="fotografia.html">Fotografia</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="kontakt.html">O mnie</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<main class="game-section">
+			<div class="container text-center" data-aos="zoom-in">
+				<div class="game-card mx-auto position-relative">
+					<h2 class="fw-bold text-gradient mb-1">Cyber Pong</h2>
+					<p class="text-secondary-custom small mb-4">
+						Wybierz poziom trudności, aby rozpocząć
+					</p>
+
+					<div class="btn-group-custom mb-2">
+						<button
+							id="btn-easy"
+							class="btn btn-outline-light btn-sm"
+							onclick="startGame('easy')"
+						>
+							Łatwy
+						</button>
+						<button
+							id="btn-medium"
+							class="btn btn-purple-primary btn-sm"
+							onclick="startGame('medium')"
+						>
+							Średni
+						</button>
+						<button
+							id="btn-hard"
+							class="btn btn-outline-light btn-sm"
+							onclick="startGame('hard')"
+						>
+							Trudny
+						</button>
+					</div>
+
+					<canvas id="pongCanvas"></canvas>
+
+					<button
+						id="restartBtn"
+						class="btn btn-purple-primary px-4 py-2"
+						onclick="restart()"
+					>
+						Zagraj ponownie
+					</button>
+
+					<p class="text-secondary-custom small mt-3">
+						Sterowanie: Ruch myszką góra/dół
+					</p>
+				</div>
+			</div>
+		</main>
+
+		<footer class="py-5 text-center mt-auto">
+			<div class="container border-top border-secondary pt-4">
+				<p class="text-secondary-custom mb-0">
+					© 2026 Piotrek | Projekt: Pong Engine v2
+				</p>
+			</div>
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+		<script>
+			AOS.init({ duration: 800, once: true });
+
+			const canvas = document.getElementById("pongCanvas");
+			const ctx = canvas.getContext("2d");
+			const restartBtn = document.getElementById("restartBtn");
+
+			canvas.width = 700;
+			canvas.height = 400;
+
+			let animationId;
+			let currentAiSpeed = 4;
+			let currentBallSpeed = 5;
+			let isGameRunning = false; // Nowa flaga stanu gry
+
+			const ball = { x: 350, y: 200, r: 8, sx: 5, sy: 5, color: "#9b5cff" };
+			const player = { x: 10, y: 150, w: 10, h: 80, score: 0, color: "#fff" };
+			const ai = { x: 680, y: 150, w: 10, h: 80, score: 0, color: "#fff" };
+
+			function drawRect(x, y, w, h, color) {
+				ctx.fillStyle = color;
+				// Zaokrąglone paletki dla lepszego wyglądu
+				ctx.beginPath();
+				ctx.roundRect(x, y, w, h, 5);
+				ctx.fill();
+			}
+
+			function drawCircle(x, y, r, color) {
+				ctx.fillStyle = color;
+				ctx.shadowBlur = 15;
+				ctx.shadowColor = color;
+				ctx.beginPath();
+				ctx.arc(x, y, r, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.shadowBlur = 0;
+			}
+
+			function drawText(text, x, y) {
+				ctx.fillStyle = "#fff";
+				ctx.font = "40px Inter";
+				ctx.fillText(text, x, y);
+			}
+
+			function update() {
+				if (!isGameRunning) return; // Jeśli gra nie trwa, nic nie przeliczaj
+
+				ball.x += ball.sx;
+				ball.y += ball.sy;
+
+				// AI
+				ai.y += (ball.y - (ai.y + ai.h / 2)) * (currentAiSpeed * 0.05);
+
+				if (ball.y + ball.r > canvas.height || ball.y - ball.r < 0)
+					ball.sy = -ball.sy;
+
+				let p = ball.x < canvas.width / 2 ? player : ai;
+				if (
+					ball.x + ball.r > p.x &&
+					ball.x - ball.r < p.x + p.w &&
+					ball.y + ball.r > p.y &&
+					ball.y - ball.r < p.y + p.h
+				) {
+					ball.sx = -ball.sx * 1.05;
+				}
+
+				if (ball.x < 0) {
+					ai.score++;
+					resetBall();
+				} else if (ball.x > canvas.width) {
+					player.score++;
+					resetBall();
+				}
+
+				// Sprawdzanie wygranej
+				if (player.score >= 5 || ai.score >= 5) {
+					isGameRunning = false; // Zatrzymujemy logikę
+					restartBtn.style.display = "block";
+				}
+			}
+
+			function resetBall() {
+				ball.x = canvas.width / 2;
+				ball.y = canvas.height / 2;
+				ball.sx = (-ball.sx / Math.abs(ball.sx)) * currentBallSpeed;
+			}
+
+			function draw() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+				// Linia środkowa
+				ctx.setLineDash([10, 10]);
+				ctx.strokeStyle = "rgba(255,255,255,0.1)";
+				ctx.beginPath();
+				ctx.moveTo(canvas.width / 2, 0);
+				ctx.lineTo(canvas.width / 2, canvas.height);
+				ctx.stroke();
+
+				drawRect(player.x, player.y, player.w, player.h, player.color);
+				drawRect(ai.x, ai.y, ai.w, ai.h, ai.color);
+				drawCircle(ball.x, ball.y, ball.r, ball.color);
+				drawText(player.score, canvas.width / 4, 50);
+				drawText(ai.score, (3 * canvas.width) / 4, 50);
+			}
+
+			function gameLoop() {
+				update();
+				draw();
+				animationId = requestAnimationFrame(gameLoop);
+			}
+
+			canvas.addEventListener("mousemove", (e) => {
+				const rect = canvas.getBoundingClientRect();
+				const scaleY = canvas.height / rect.height;
+				player.y = (e.clientY - rect.top) * scaleY - player.h / 2;
+			});
+
+			function startGame(level) {
+				isGameRunning = true; // Aktywujemy logikę gry
+				restartBtn.style.display = "none";
+				player.score = 0;
+				ai.score = 0;
+
+				// Obsługa wyglądu przycisków
+				const levels = ["easy", "medium", "hard"];
+				levels.forEach((l) => {
+					const btn = document.getElementById(`btn-${l}`);
+					if (l === level) {
+						btn.classList.replace("btn-outline-light", "btn-purple-primary");
+					} else {
+						btn.classList.replace("btn-purple-primary", "btn-outline-light");
+					}
+				});
+
+				switch (level) {
+					case "easy":
+						currentAiSpeed = 2;
+						currentBallSpeed = 4;
+						break;
+					case "medium":
+						currentAiSpeed = 4;
+						currentBallSpeed = 6;
+						break;
+					case "hard":
+						currentAiSpeed = 7;
+						currentBallSpeed = 8;
+						break;
+				}
+
+				resetBall();
+				if (!animationId) gameLoop(); // Uruchom pętlę tylko jeśli jeszcze nie działa
+			}
+
+			function restart() {
+				startGame("medium");
+			}
+
+			// Inicjalizacja pustego widoku
+			draw();
+		</script>
+	</body>
+</html>
