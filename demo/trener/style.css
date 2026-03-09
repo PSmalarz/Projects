@@ -1,0 +1,1032 @@
+/* RESET I PODSTAWY */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--black: #0a0a0a;
+	--dark-gray: #1a1a1a;
+	--gold: #d4af37;
+	--gold-hover: #b8952e;
+	--white: #f4f4f4;
+}
+
+body {
+	font-family: "Montserrat", sans-serif;
+	background-color: var(--black);
+	color: var(--white);
+	line-height: 1.6;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.text-gold {
+	color: var(--gold);
+}
+.text-center {
+	text-align: center;
+}
+
+/* NAVBAR */
+.navbar {
+	padding: 20px 0;
+	background: rgba(10, 10, 10, 0.95);
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.navbar .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	font-weight: 900;
+	font-size: 1.5rem;
+	color: var(--white);
+	text-decoration: none;
+	letter-spacing: 2px;
+}
+
+.logo span {
+	color: var(--gold);
+}
+
+.nav-links {
+	display: flex;
+	list-style: none;
+	align-items: center;
+}
+
+.nav-links li a {
+	color: var(--white);
+	text-decoration: none;
+	margin-left: 30px;
+	font-weight: 400;
+	transition: 0.3s;
+	font-size: 0.9rem;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+	color: var(--gold);
+}
+
+/* HERO */
+.hero {
+	height: 90vh;
+	background:
+		linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+		url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80")
+			center/cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.hero h1 {
+	font-size: 4rem;
+	font-weight: 900;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+}
+
+.hero p {
+	font-size: 1.2rem;
+	margin-bottom: 40px;
+	max-width: 700px;
+	margin-inline: auto;
+}
+
+/* PRZYCISKI */
+.btn-gold {
+	background: var(--gold);
+	color: var(--black);
+	padding: 15px 40px;
+	text-decoration: none;
+	font-weight: 700;
+	text-transform: uppercase;
+	transition: 0.3s;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.btn-gold:hover {
+	background: var(--gold-hover);
+}
+
+.btn-outline {
+	border: 2px solid var(--gold);
+	color: var(--gold);
+	padding: 13px 40px;
+	text-decoration: none;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-left: 15px;
+	transition: 0.3s;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.btn-outline:hover {
+	background: var(--gold);
+	color: var(--black);
+}
+
+.btn-gold-sm {
+	background: var(--gold);
+	color: var(--black);
+	padding: 8px 20px;
+	text-decoration: none;
+	font-weight: 700;
+	border-radius: 3px;
+}
+
+/* SEKCJE */
+section {
+	padding: 100px 0;
+}
+.section-title {
+	font-size: 2.5rem;
+	margin-bottom: 50px;
+	text-transform: uppercase;
+}
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 50px;
+	align-items: center;
+}
+.grid-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+.grid-4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+}
+
+/* PRICING */
+.price-box {
+	background: var(--dark-gray);
+	padding: 50px 30px;
+	border: 1px solid #333;
+	transition: 0.4s;
+	position: relative;
+}
+
+.price-box.featured {
+	border: 1px solid var(--gold);
+	transform: scale(1.05);
+}
+
+.price-box h3 {
+	font-size: 1.8rem;
+	margin-bottom: 20px;
+}
+.price {
+	font-size: 2.5rem;
+	font-weight: 900;
+	color: var(--gold);
+	margin-bottom: 30px;
+}
+.price span {
+	font-size: 1rem;
+	color: var(--white);
+}
+
+.price-box ul {
+	list-style: none;
+	margin-bottom: 40px;
+}
+.price-box ul li {
+	margin-bottom: 10px;
+	opacity: 0.8;
+}
+
+.badge {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: var(--gold);
+	color: var(--black);
+	padding: 5px 20px;
+	font-size: 0.8rem;
+	font-weight: 700;
+}
+
+/* STOPKA */
+.footer {
+	background: #050505;
+	padding: 80px 0 20px;
+	border-top: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.footer h4 {
+	color: var(--gold);
+	margin-bottom: 20px;
+}
+.footer ul {
+	list-style: none;
+}
+.footer ul li a {
+	color: var(--white);
+	text-decoration: none;
+	opacity: 0.7;
+	transition: 0.3s;
+}
+.footer ul li a:hover {
+	opacity: 1;
+	color: var(--gold);
+}
+
+.footer-bottom {
+	margin-top: 50px;
+	padding-top: 20px;
+	border-top: 1px solid #222;
+	text-align: center;
+	font-size: 0.8rem;
+	opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+	.grid-2,
+	.grid-3,
+	.grid-4 {
+		grid-template-columns: 1fr;
+	}
+	.hero h1 {
+		font-size: 2.5rem;
+	}
+}
+
+/* --- CSS DLA ZDJĘĆ: ROZWIĄZANIE PROBLEMU ROZJEŻDŻANIA SIĘ --- */
+
+/* 1. Globalna reguła dla wszystkich zdjęć, aby były elastyczne */
+img {
+	max-width: 100%; /* Zdjęcie nie przekroczy szerokości swojego rodzica */
+	height: auto; /* Wysokość dostosuje się automatycznie, zachowując proporcje */
+	display: block; /* Usuwa dziwną przerwę na dole zdjęcia */
+}
+
+/* 2. Stylizacja zdjęć w sekcji METAMORFOZY */
+.card-meta img {
+	width: 100%; /* Zdjęcie wypełni całą szerokość karty */
+	height: 350px; /* WYMUSZAMY JEDNAKOWĄ WYSOKOŚĆ dla wszystkich zdjęć */
+	object-fit: cover; /* KLUCZOWE: zdjęcie jest przycinane, ale nie rozciągane, aby wypełnić obszar */
+	border-radius: 5px; /* Delikatne zaokrąglenie, pasujące do przycisków */
+	border: 1px solid rgba(212, 175, 55, 0.3); /* Subtelna złota ramka wokół zdjęcia */
+}
+
+/* 3. Stylizacja zdjęcia w sekcji O MNIE */
+.about-img img {
+	border-radius: 10px; /* Nieco większe zaokrąglenie */
+	object-fit: cover; /* Aby zdjęcie trenera też dobrze wyglądało */
+	height: 100%; /* Wypełnia ramkę złota */
+}
+
+.gold-frame {
+	border: 3px solid var(--gold); /* Grubsza złota ramka wokół zdjęcia trenera */
+	padding: 10px; /* Odstęp między ramką a zdjęciem */
+	display: inline-block; /* Ramka dopasowuje się do zdjęcia */
+	border-radius: 15px; /* Zaokrąglenie samej ramki */
+}
+/* --- STYLIZACJA PODSTRONY O MNIE --- */
+
+/* Hero O mnie */
+.about-hero {
+	background:
+		linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+		url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80")
+			center/cover;
+	padding: 80px 0;
+	border-bottom: 1px solid var(--gold);
+}
+
+/* Liczniki (Stats) */
+.stats {
+	background: var(--dark-gray);
+	padding: 60px 0;
+}
+
+.stat-number {
+	font-size: 3.5rem;
+	font-weight: 900;
+	display: block;
+}
+
+.stat-item p {
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 1px;
+	font-size: 0.9rem;
+}
+
+/* Karty Wartości */
+.value-card {
+	background: #111;
+	padding: 40px;
+	border-left: 4px solid var(--gold);
+	transition: 0.3s;
+}
+
+.value-card:hover {
+	background: #1a1a1a;
+	transform: translateY(-5px);
+}
+
+.value-icon {
+	font-size: 2rem;
+	font-weight: 900;
+	color: rgba(212, 175, 55, 0.2);
+	margin-bottom: 10px;
+}
+
+.value-card h3 {
+	margin-bottom: 15px;
+	color: var(--gold);
+}
+
+/* Certyfikaty */
+.certs-flex {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-top: 30px;
+}
+
+.cert-box {
+	background: white; /* Certyfikaty zazwyczaj są białe/jasne */
+	padding: 5px;
+	border-radius: 3px;
+	transition: 0.3s;
+	filter: grayscale(100%); /* Premium look: certyfikaty w czerni i bieli... */
+}
+
+.cert-box:hover {
+	filter: grayscale(0%); /* ...kolor wraca po najechaniu */
+	transform: scale(1.05);
+}
+
+/* Galeria Treningowa */
+.gallery-img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.gallery-img:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.img-premium {
+	border: 1px solid var(--gold);
+	box-shadow: 20px 20px 0px var(--gold); /* Fajny, nowoczesny efekt "cienia" w kolorze złota */
+	margin-bottom: 20px;
+}
+/* --- STYLIZACJA PODSTRONY OFERTA --- */
+
+.offer-hero {
+	background:
+		linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)),
+		url("https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80")
+			center/cover;
+	padding: 100px 0;
+}
+
+.package-desc {
+	font-size: 0.9rem;
+	color: #ccc;
+	margin-bottom: 25px;
+	min-height: 50px;
+}
+
+.features-list {
+	list-style: none;
+	text-align: left;
+	margin-bottom: 30px;
+}
+
+.features-list li {
+	padding: 8px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	font-size: 0.9rem;
+}
+
+.features-list li::before {
+	content: "•";
+	color: var(--gold);
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+}
+
+/* TABELA PORÓWNAWCZA */
+.table-container {
+	overflow-x: auto; /* Responsywność na telefonach */
+	margin-top: 40px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--dark-gray);
+	color: var(--white);
+	text-align: center;
+	border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+table th,
+table td {
+	padding: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+table th {
+	background: #000;
+	color: var(--gold);
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	letter-spacing: 1px;
+}
+
+table tr:hover {
+	background: rgba(212, 175, 55, 0.05);
+}
+
+/* FAQ */
+.faq-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 40px;
+	margin-top: 50px;
+}
+
+.faq-item h4 {
+	color: var(--gold);
+	margin-bottom: 15px;
+	font-size: 1.1rem;
+}
+
+.faq-item p {
+	font-size: 0.9rem;
+	opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+	.faq-grid {
+		grid-template-columns: 1fr;
+	}
+}
+/* --- STYLIZACJA PODSTRONY KONTAKT --- */
+
+.contact-hero {
+	background:
+		linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+		url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80")
+			center/cover;
+	padding: 80px 0;
+}
+
+.contact-main {
+	padding: 80px 0;
+}
+
+.section-subtitle {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+.contact-lead {
+	margin-bottom: 40px;
+	opacity: 0.8;
+}
+
+/* Ikony i Metody Kontaktu */
+.contact-method {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-bottom: 30px;
+}
+
+.contact-icon {
+	font-size: 1.5rem;
+	background: var(--dark-gray);
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border: 1px solid var(--gold);
+}
+
+.contact-method h4 {
+	color: var(--gold);
+	font-size: 0.9rem;
+	text-transform: uppercase;
+}
+
+.social-links-contact {
+	margin-top: 50px;
+	padding-top: 30px;
+	border-top: 1px solid #222;
+}
+
+/* Formularz */
+.contact-form-container {
+	background: var(--dark-gray);
+	padding: 40px;
+	border-radius: 10px;
+	border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-size: 0.8rem;
+	color: var(--gold);
+	text-transform: uppercase;
+	margin-bottom: 8px;
+	font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+	width: 100%;
+	padding: 12px;
+	background: #0a0a0a;
+	border: 1px solid #333;
+	color: white;
+	font-family: "Montserrat", sans-serif;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+	outline: none;
+	border-color: var(--gold);
+	box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.contact-form-container .btn-gold {
+	width: 100%;
+	cursor: pointer;
+	border: none;
+}
+
+/* Mapa */
+.map-placeholder {
+	height: 400px;
+	background: #111;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--gold);
+	border-top: 1px solid var(--gold);
+	border-bottom: 1px solid var(--gold);
+}
+
+@media (max-width: 768px) {
+	.contact-main .grid-2 {
+		grid-template-columns: 1fr;
+	}
+}
+/* --- STYLIZACJA PODSTRONY OPINIE --- */
+
+.testimonials-hero {
+	background:
+		linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)),
+		url("https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80")
+			center/cover;
+	padding: 100px 0;
+}
+
+.testimonials-grid-section {
+	padding: 80px 0;
+}
+
+.testimonial-card {
+	background: var(--dark-gray);
+	padding: 30px;
+	border: 1px solid rgba(212, 175, 55, 0.1);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: 0.3s ease-in-out;
+}
+
+.testimonial-card:hover {
+	transform: translateY(-10px);
+	border-color: var(--gold);
+	box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+}
+
+.stars {
+	font-size: 0.8rem;
+	margin-bottom: 15px;
+	letter-spacing: 2px;
+}
+
+.testimonial-text {
+	font-style: italic;
+	font-size: 0.95rem;
+	line-height: 1.7;
+	margin-bottom: 25px;
+	color: #ddd;
+}
+
+.client-info {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+	padding-top: 20px;
+}
+
+.client-img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--gold);
+}
+
+.client-info h4 {
+	font-size: 1rem;
+	margin-bottom: 2px;
+}
+
+.achievement {
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Sekcja dołącz do nich */
+.join-them {
+	background: #050505;
+	padding: 100px 0;
+	border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Responsywność */
+@media (max-width: 992px) {
+	.testimonials-grid-section .grid-3 {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 600px) {
+	.testimonials-grid-section .grid-3 {
+		grid-template-columns: 1fr;
+	}
+}
+/* --- STYLIZACJA PODSTRONY BLOG --- */
+
+.blog-hero {
+	background:
+		linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+		url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80")
+			center/cover;
+	padding: 100px 0;
+}
+
+/* Wyróżniony wpis */
+.featured-post-card {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr;
+	background: var(--dark-gray);
+	border-radius: 15px;
+	overflow: hidden;
+	margin-top: -50px; /* Lekkie nachodzenie na Hero */
+	border: 1px solid rgba(212, 175, 55, 0.2);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.featured-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.featured-content {
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.category-tag {
+	background: var(--gold);
+	color: var(--black);
+	padding: 5px 15px;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	width: fit-content;
+	margin-bottom: 20px;
+}
+
+.featured-content h2 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+/* Filtry */
+.blog-filters {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin: 50px 0;
+}
+
+.filter-btn {
+	background: transparent;
+	border: 1px solid #333;
+	color: white;
+	padding: 10px 25px;
+	cursor: pointer;
+	border-radius: 30px;
+	transition: 0.3s;
+	font-family: inherit;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+	border-color: var(--gold);
+	color: var(--gold);
+}
+
+/* Karty Bloga */
+.blog-card {
+	background: var(--dark-gray);
+	border-radius: 10px;
+	overflow: hidden;
+	transition: 0.3s;
+}
+
+.blog-card:hover {
+	transform: translateY(-5px);
+}
+
+.blog-card-img {
+	position: relative;
+	height: 200px;
+}
+
+.blog-card-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.card-tag {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	background: rgba(10, 10, 10, 0.8);
+	color: var(--gold);
+	padding: 3px 10px;
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.blog-card-body {
+	padding: 25px;
+}
+
+.post-date {
+	font-size: 0.75rem;
+	opacity: 0.5;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.blog-card-body h3 {
+	font-size: 1.2rem;
+	margin-bottom: 15px;
+	line-height: 1.4;
+}
+
+.read-more {
+	display: inline-block;
+	margin-top: 20px;
+	color: var(--gold);
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.85rem;
+}
+
+/* Newsletter */
+.newsletter {
+	padding: 100px 0;
+}
+
+.newsletter-box {
+	background: linear-gradient(45deg, #111, #1a1a1a);
+	padding: 60px;
+	border: 1px solid var(--gold);
+	border-radius: 20px;
+}
+
+.newsletter-form {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 30px;
+}
+
+.newsletter-form input {
+	padding: 15px 25px;
+	width: 300px;
+	background: #000;
+	border: 1px solid #333;
+	color: white;
+	border-radius: 5px;
+}
+
+/* Responsywność */
+@media (max-width: 992px) {
+	.featured-post-card {
+		grid-template-columns: 1fr;
+	}
+	.newsletter-form {
+		flex-direction: column;
+		align-items: center;
+	}
+	.newsletter-form input {
+		width: 100%;
+		max-width: 300px;
+	}
+}
+/* --- MOBILNE MENU HAMBURGER --- */
+
+/* Styl ikonki hamburgera (domyślnie ukryta na desktopie) */
+.hamburger {
+	display: none;
+	flex-direction: column;
+	cursor: pointer;
+	gap: 5px;
+}
+
+.hamburger span {
+	display: block;
+	width: 25px;
+	height: 3px;
+	background-color: var(--gold);
+	transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+	.hamburger {
+		display: flex;
+		z-index: 1001;
+	}
+
+	/* Przekształcenie listy linków w mobilną nakładkę */
+	.nav-links {
+		position: fixed;
+		right: -100%; /* Ukryte poza ekranem */
+		top: 0;
+		height: 100vh;
+		width: 70%; /* Zajmuje 70% szerokości ekranu */
+		background: var(--black);
+		border-left: 1px solid var(--gold);
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		transition: 0.5s ease;
+		gap: 30px;
+		box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+	}
+
+	/* Klasa dodawana przez JS po kliknięciu */
+	.nav-links.active {
+		right: 0;
+	}
+
+	.nav-links li {
+		margin-left: 0;
+	}
+
+	.nav-links li a {
+		font-size: 1.2rem;
+	}
+
+	/* Animacja hamburgera w "X" po otwarciu */
+	.hamburger.active span:nth-child(1) {
+		transform: translateY(8px) rotate(45deg);
+	}
+	.hamburger.active span:nth-child(2) {
+		opacity: 0;
+	}
+	.hamburger.active span:nth-child(3) {
+		transform: translateY(-8px) rotate(-45deg);
+	}
+}
+
+/* Celujemy konkretnie w sekcję o mnie */
+.about-text h2,
+.about-text p {
+	word-wrap: break-word; /* Łamanie bardzo długich słów */
+	overflow-wrap: break-word; /* Nowoczesny standard łamania */
+	hyphens: auto; /* Opcjonalne: dodaje myślniki przy łamaniu (PL) */
+	max-width: 100%; /* Nie pozwól tekstowi wyjść poza rodzica */
+}
+
+@media (max-width: 768px) {
+	.about-text {
+		padding-right: 10px; /* Bezpieczny margines z prawej strony */
+		padding-left: 10px;
+	}
+
+	.about-text h2 {
+		font-size: 1.8rem; /* Zmniejszenie fontu, by hasło zmieściło się w linii */
+		line-height: 1.2;
+	}
+}
+/* FINALNA POPRAWKA RESPONSYWNOŚCI DLA "O MNIE" */
+@media (max-width: 768px) {
+	/* 1. Naprawa sekcji History - wymuszamy układ pionowy */
+	.history .grid-2 {
+		display: flex !important;
+		flex-direction: column-reverse !important; /* Zdjęcie ląduje pod tekstem */
+		gap: 30px !important;
+	}
+
+	/* 2. Naprawa złotego cienia, który wypychał stronę w prawo */
+	.img-premium {
+		box-shadow: 10px 10px 0px var(--gold) !important; /* Zmniejszamy cień o połowę */
+		margin-right: 10px !important; /* Robimy miejsce na ten cień */
+		width: calc(100% - 10px) !important;
+	}
+
+	/* 3. Zabezpieczenie tekstu przed uciekaniem */
+	.history-text {
+		width: 100% !important;
+		padding: 0 10px !important;
+	}
+
+	.history-text p {
+		font-size: 1rem !important;
+		white-space: normal !important; /* Zapobiega trzymaniu tekstu w jednej linii */
+		overflow-wrap: break-word !important;
+	}
+
+	/* 4. Globalne zabezpieczenie przed przesuwaniem strony na boki */
+	html,
+	body {
+		overflow-x: hidden !important;
+		position: relative;
+	}
+}
+@media (max-width: 768px) {
+	/* Ustawiamy przyciski jeden pod drugim z odstępem */
+	.hero-btns {
+		display: flex;
+		flex-direction: column;
+		gap: 15px; /* To stworzy idealny odstęp 15px między przyciskami */
+		align-items: center;
+	}
+
+	/* Resetujemy lewy margines drugiego przycisku, który na desktopie wynosi 15px */
+	.btn-outline {
+		margin-left: 0 !important;
+		width: 100%; /* Opcjonalnie: przyciski na całą szerokość ekranu wyglądają lepiej na mobile */
+		max-width: 300px;
+	}
+
+	.btn-gold {
+		width: 100%;
+		max-width: 300px;
+	}
+}
