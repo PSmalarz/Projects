@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Efektów | Aura Beauty Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="galeria.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">AURA <span>Beauty</span></div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="uslugi.html">Usługi</a></li>
+            <li><a href="galeria.html" class="active">Galeria</a></li>
+            <li><a href="o-nas.html">Dlaczego my</a></li>
+            <li><a href="kontakt.html" class="btn-nav">Umów wizytę</a></li>
+        </ul>
+    </nav>
+
+    <header class="subpage-hero">
+        <div class="container">
+            <h1>Nasze Prace</h1>
+            <p>Zobacz metamorfozy, które uszczęśliwiły nasze klientki.</p>
+        </div>
+    </header>
+
+    <section class="gallery-section">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Wszystkie</button>
+                <button class="filter-btn" data-filter="nails">Paznokcie</button>
+                <button class="filter-btn" data-filter="lashes">Rzęsy</button>
+                <button class="filter-btn" data-filter="face">Twarz</button>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item nails">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="Nails">
+                    <div class="overlay"><span>Nude Elegance</span></div>
+                </div>
+                <div class="portfolio-item nails">
+                    <img src="https://images.unsplash.com/photo-1660241657459-554031137e4f?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nails">
+                    <div class="overlay"><span>Classic Red</span></div>
+                </div>
+                <div class="portfolio-item lashes">
+                    <img src="https://images.unsplash.com/photo-1639629509821-c54cdd984227?q=80&w=1101&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lashes">
+                    <div class="overlay"><span>Volume 3:1</span></div>
+                </div>
+                <div class="portfolio-item lashes">
+                    <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80" alt="Lashes">
+                    <div class="overlay"><span>Natural Look</span></div>
+                </div>
+                <div class="portfolio-item face">
+                    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="Face">
+                    <div class="overlay"><span>Glow Therapy</span></div>
+                </div>
+                <div class="portfolio-item face">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" alt="Face">
+                    <div class="overlay"><span>Peeling kawitacyjny</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-box">
+                <h3>Aura Studio</h3>
+                <p>Piękno zrodzone z pasji.</p>
+            </div>
+            <div class="footer-box social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2024 Aura Beauty Studio.</div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Logic (z poprzedniego kroku)
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Proste filtrowanie galerii
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Usuń klasę active ze wszystkich przycisków
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 10);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

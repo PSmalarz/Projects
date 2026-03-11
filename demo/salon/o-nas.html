@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O nas | Aura Beauty Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="o-nas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">AURA <span>Beauty</span></div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="uslugi.html">Usługi</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="o-nas.html" class="active">Dlaczego My</a></li>
+            <li><a href="kontakt.html" class="btn-nav">Umów wizytę</a></li>
+        </ul>
+    </nav>
+
+    <header class="subpage-hero">
+        <div class="container">
+            <h1>Pasja i Profesjonalizm</h1>
+            <p>Poznaj wartości, które stoją za każdym wykonanym przez nas zabiegiem.</p>
+        </div>
+    </header>
+
+    <section class="about-philosophy">
+        <div class="container">
+            <div class="philosophy-grid">
+                <div class="philosophy-text">
+                    <h2 class="section-title" style="text-align: left;">Nasza Misja</h2>
+                    <p>W Aura Beauty Studio wierzymy, że piękno to nie tylko wygląd, ale przede wszystkim dobre samopoczucie. Stworzyliśmy miejsce, w którym luksus spotyka się z domową atmosferą, a każda klientka traktowana jest jak nasza najważniejsza gościni.</p>
+                    <p>Od lat doskonalimy nasze umiejętności, aby dostarczać usługi na najwyższym światowym poziomie, zachowując przy tym subtelność i naturalność efektów.</p>
+                </div>
+                <div class="philosophy-image">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=800&q=80" alt="Salon Aura">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="core-values">
+        <div class="container">
+            <h2 class="section-title">Nasze Fundamenty</h2>
+            <div class="values-detailed">
+                <div class="value-row">
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="value-content">
+                        <h3>Profesjonalne kosmetyki</h3>
+                        <p>Nie uznajemy kompromisów. Pracujemy wyłącznie na preparatach marek premium, które łączą naturę z zaawansowaną technologią. Każdy produkt jest przez nas testowany, aby zagwarantować bezpieczeństwo nawet dla najbardziej wrażliwej skóry.</p>
+                    </div>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="value-content">
+                        <h3>Certyfikowani specjaliści</h3>
+                        <p>Nasz zespół to wykształcone kosmetolożki i stylistki rzęs, dla których praca jest pasją. Regularnie uczestniczymy w międzynarodowych szkoleniach i kongresach, aby wprowadzać do Aury najnowsze trendy i techniki zabiegowe.</p>
+                    </div>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon"><i class="fas fa-droplet"></i></div>
+                    <div class="value-content">
+                        <h3>Higiena i bezpieczeństwo</h3>
+                        <p>Standardy medyczne w salonie kosmetycznym to u nas norma. Korzystamy z nowoczesnego autoklawu klasy B, a narzędzia jednorazowe otwieramy zawsze w Twojej obecności. Twój spokój jest dla nas priorytetem.</p>
+                    </div>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <div class="value-content">
+                        <h3>Indywidualne podejście</h3>
+                        <p>W Aurze nie ma "standardowych" zabiegów. Każdą wizytę poprzedza darmowa konsultacja, podczas której analizujemy potrzeby Twojej skóry i dobieramy plan pielęgnacji skrojony na miarę Twoich oczekiwań.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-box">
+                <h3>Aura Studio</h3>
+                <p>Miejsce, w którym rozkwitasz.</p>
+            </div>
+            <div class="footer-box social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2024 Aura Beauty Studio.</div>
+    </footer>
+
+    <script>
+        // Hamburger Menu (spójny z resztą stron)
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

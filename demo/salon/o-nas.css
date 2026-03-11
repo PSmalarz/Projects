@@ -1,0 +1,90 @@
+/* Sekcja Misji */
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.philosophy-text p {
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.philosophy-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 20px 20px 0 var(--soft-pink); /* Ciekawy efekt wizualny */
+}
+
+/* Szczegółowe wartości */
+.core-values {
+    background-color: var(--soft-pink);
+    padding: 100px 0;
+}
+
+.values-detailed {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.value-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+.value-row:hover {
+    border-left-color: var(--gold);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.value-icon i {
+    font-size: 2.5rem;
+    color: var(--gold);
+}
+
+.value-content h3 {
+    font-family: var(--font-header);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.value-content p {
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+/* Responsywność */
+@media (max-width: 992px) {
+    .philosophy-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .philosophy-image {
+        order: -1; /* Obrazek nad tekstem na mobile */
+    }
+    .philosophy-image img {
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .value-row {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+    .value-row:hover {
+        transform: none;
+    }
+}

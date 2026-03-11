@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt | Aura Beauty Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="kontakt.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">AURA <span>Beauty</span></div>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="uslugi.html">Usługi</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="o-nas.html">Dlaczego My</a></li>
+            <li><a href="kontakt.html" class="active">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <header class="subpage-hero">
+        <div class="container">
+            <h1>Zapraszamy do Aury</h1>
+            <p>Umów się na wizytę i pozwól nam zadbać o Twoje piękno.</p>
+        </div>
+    </header>
+
+    <section class="contact-main">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <div class="contact-info">
+                    <h2 class="section-title" style="text-align: left;">Znajdź nas</h2>
+                    <div class="info-item">
+                        <i class="fas fa-location-dot"></i>
+                        <p>ul. Estetyczna 12, 00-001 Warszawa</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+48 123 456 789</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>kontakt@aurabeauty.pl</p>
+                    </div>
+
+                    <div class="opening-hours">
+                        <h3>Godziny otwarcia</h3>
+                        <div class="hours-row"><span>Poniedziałek - Piątek</span> <span class="dots"></span> <span>09:00 - 20:00</span></div>
+                        <div class="hours-row"><span>Sobota</span> <span class="dots"></span> <span>10:00 - 16:00</span></div>
+                        <div class="hours-row"><span>Niedziela</span> <span class="dots"></span> <span>Zamknięte</span></div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form class="aura-form">
+                        <div class="input-group">
+                            <input type="text" placeholder="Imię i Nazwisko" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Adres E-mail" required>
+                        </div>
+                        <div class="input-group">
+                            <select>
+                                <option value="" disabled selected>Wybierz usługę</option>
+                                <option value="manicure">Manicure</option>
+                                <option value="lashes">Stylizacja rzęs</option>
+                                <option value="face">Zabieg na twarz</option>
+                                <option value="other">Inna sprawa</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <textarea placeholder="Twoja wiadomość..." rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Wyślij wiadomość</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.903429352136!2d21.0084333!3d52.2311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzUyLjAiTiAyMcKwMDAnMzAuNCJF!5e0!3m2!1spl!2spl!4v1620000000000!5m2!1spl!2spl" 
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </section>
+
+    <footer>
+        <div class="container footer-bottom">
+            &copy; 2024 Aura Beauty Studio. Projektowanie piękna każdego dnia.
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
