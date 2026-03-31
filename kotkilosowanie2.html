@@ -209,7 +209,9 @@
 			// --- TUTAJ TWOJA LOGIKA JS (ZOSTAWIŁEM I POPRAWIŁEM ŚCIEŻKI) ---
 			let isOpening = false;
 			const sndCaseOpen = new Audio("sounds/case_open.mp3");
+			sndCaseOpen.volume = 0.3;
 			const sndCaseWin = new Audio("sounds/case_win.mp3");
+			sndCaseWin.volume = 0.3;
 
 			// Dane kotków (tutaj Twoja długa lista...)
 			const kotkiData = [
@@ -1084,6 +1086,7 @@
 				setTimeout(() => {
 					strip.style.transition = "9s cubic-bezier(0.06, 0.9, 0.12, 1)";
 					strip.style.transform = `translateX(-${centerOffset}px)`;
+					sndCaseOpen.currentTime = 0;
 					sndCaseOpen.play().catch(() => {});
 				}, 50);
 
