@@ -1,0 +1,230 @@
+:root {
+    --bg-color: #050505;
+    --card-bg: #0f0f0f;
+    --accent-color: #8b5cf6;
+    --accent-glow: rgba(139, 92, 246, 0.5);
+    --text-color: #ffffff;
+    --btn-bg: #1a1a1a;
+    --sci-bg: #131313;
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 50%, #1a1033 0%, #050505 100%);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.brand span { color: var(--accent-color); font-weight: bold; }
+
+/* Główny kontener kalkulatora */
+.calculator {
+    width: 380px;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.glass-main {
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(20px);
+}
+
+/* Wyświetlacz */
+.display {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 15px;
+    margin-bottom: 25px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+.previous-operand {
+    color: var(--accent-color);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.current-operand {
+    font-size: 2.8rem;
+    font-weight: 300;
+    overflow-x: auto;
+    width: 100%;
+    text-align: right;
+}
+
+/* Przyciski - Siatka 5 kolumn */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    border-radius: 14px;
+    height: 55px;
+    background: var(--btn-bg);
+    color: white;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    background: #252525;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-operator {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.btn-sci {
+    background: var(--sci-bg);
+    color: #a78bfa;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.btn-alt {
+    color: #f87171;
+    font-weight: 600;
+}
+
+.btn-equal {
+    background: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btn-equal:hover {
+    background: #7c3aed;
+    box-shadow: 0 0 25px var(--accent-glow);
+}
+
+/* Modale */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+}
+
+.glass-modal {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(25px);
+    border-radius: 32px;
+    padding: 40px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.price-tag {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 20px 0;
+}
+
+.price-tag span {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 400;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-pay {
+    background: var(--accent-color);
+    height: 60px;
+    width: 100%;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: #666;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #FFF;
+    border-bottom-color: var(--accent-color);
+    border-radius: 50%;
+    display: inline-block;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden { display: none !important; }
+
+.btn-back {
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-glow);
+    transform: translateX(-3px);
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>QuantumCalc Pro — Futuristic Edition</title>
+		<link rel="stylesheet" href="style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="calculator-container">
+			<div class="calculator glass-main">
+				<a href="../../projekty.html" class="btn-back">← Wróć do projektów</a>
+				<div class="brand">QUANTUM<span>CALC</span></div>
+				<div class="display">
+					<div class="previous-operand" id="previous-operand"></div>
+					<div class="current-operand" id="current-operand">0</div>
+				</div>
+
+				<div class="buttons">
+					<button class="btn-sci" onclick="scientific('sin')">sin</button>
+					<button class="btn-sci" onclick="scientific('cos')">cos</button>
+					<button class="btn-sci" onclick="scientific('tan')">tan</button>
+					<button class="btn-alt" onclick="clearDisplay()">AC</button>
+					<button class="btn-alt" onclick="deleteNumber()">DEL</button>
+
+					<button class="btn-sci" onclick="scientific('sqrt')">√</button>
+					<button onclick="appendNumber('7')">7</button>
+					<button onclick="appendNumber('8')">8</button>
+					<button onclick="appendNumber('9')">9</button>
+					<button class="btn-operator" onclick="chooseOperator('/')">÷</button>
+
+					<button class="btn-sci" onclick="scientific('pow')">x²</button>
+					<button onclick="appendNumber('4')">4</button>
+					<button onclick="appendNumber('5')">5</button>
+					<button onclick="appendNumber('6')">6</button>
+					<button class="btn-operator" onclick="chooseOperator('*')">×</button>
+
+					<button class="btn-sci" onclick="scientific('log')">log</button>
+					<button onclick="appendNumber('1')">1</button>
+					<button onclick="appendNumber('2')">2</button>
+					<button onclick="appendNumber('3')">3</button>
+					<button class="btn-operator" onclick="chooseOperator('-')">−</button>
+
+					<button class="btn-sci" onclick="scientific('pi')">π</button>
+					<button onclick="appendNumber('0')">0</button>
+					<button onclick="appendNumber('.')">.</button>
+					<button class="btn-equal" onclick="compute()">=</button>
+					<button class="btn-operator" onclick="chooseOperator('+')">+</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="modal-overlay" class="modal-overlay">
+			<div id="trial-modal" class="modal-content glass-modal">
+				<div class="modal-icon">⚠</div>
+				<h2>Bezpłatny okres próbny zakończony</h2>
+				<p>
+					Osiągnąłeś limit darmowych obliczeń. Aktywuj swój
+					<b>Premium Bilet Dzienny</b> aby odblokować pełny potencjał naukowy.
+				</p>
+				<div class="price-tag">0.99zł <span>/ 24h</span></div>
+				<div class="modal-buttons">
+					<button class="btn-cancel" onclick="closeModal()">
+						Może później
+					</button>
+					<button class="btn-pay" onclick="processPayment()">
+						Zapłać i Aktywuj
+					</button>
+				</div>
+			</div>
+
+			<div id="success-modal" class="modal-content glass-modal hidden">
+				<div class="loader-container">
+					<div class="loader"></div>
+				</div>
+				<h2 id="success-title">Autoryzacja...</h2>
+				<p id="success-text">Łączenie z bezpieczną bramką płatności.</p>
+				<button
+					id="continue-btn"
+					class="btn-pay hidden"
+					onclick="activateSubscription()"
+				>
+					Dostęp przyznany
+				</button>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
